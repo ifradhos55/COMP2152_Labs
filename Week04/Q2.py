@@ -15,7 +15,7 @@ def two_sum_brute_force(numbers, target):
 def two_sum_optimized(numbers, target):
     seen = {}  # Dictionary to store {number: index}
     # TODO: Loop through numbers, check if needed value exists in seen
-        for i in range(len(numbers)):
+    for i in range(len(numbers)):
         needed = target - numbers[i]
         if needed in seen:
             return [seen[needed], i]
