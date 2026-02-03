@@ -2,8 +2,6 @@
 Ifrad Hossain
 101587843
 '''
-
-
 # Question 1: Robot Return to Origin
 
 def robot_returns_to_origin(moves):
@@ -12,9 +10,21 @@ def robot_returns_to_origin(moves):
     y = 0
 
     # TODO: Loop through each move and update x, y
+    for move in moves:
+        if move == "U":
+            y += 1
+        elif move == "D":
+            y -= 1
+        elif move == "L":
+            x -= 1
+        elif move == "R":
+            x += 1
 
     # TODO: Return True if back at origin, False otherwise
-    pass
+    if x == 0 and y == 0:
+        return True
+    else:
+        return False
 
 # Test cases
 test_moves = ["UD", "LL", "UDLR", "LDRRLRUULR"]
@@ -30,13 +40,22 @@ def two_sum_brute_force(numbers, target):
     # TODO: Use nested loops to find the pair
     # Outer loop: i from 0 to len(numbers)
     # Inner loop: j from i+1 to len(numbers)
-    pass
+    for i in range(len(numbers)):
+        for j in range(i+1, len(numbers)):
+            if numbers[i] + numbers[j] == target:
+                return [i, j]
+    return None
 
 # Part B: Optimized with Dictionary
 def two_sum_optimized(numbers, target):
     seen = {}  # Dictionary to store {number: index}
     # TODO: Loop through numbers, check if needed value exists in seen
-    pass
+    for i in range(len(numbers)):
+        needed = target - numbers[i]
+        if needed in seen:
+            return [seen[needed], i]
+        seen[numbers[i]] = i
+    return None
 
 # Test cases
 test_cases = [
@@ -72,7 +91,9 @@ def shuffle_array(nums, n):
 
     # Step 3: Interleave using a for loop
     # TODO: Loop through range(n) and append alternating elements
-
+    for i in range(n):
+        result.append(first_half[i])
+        result.append(second_half[i])
     return result
 
 # Test cases
@@ -103,6 +124,11 @@ def count_characters(s):
     # TODO: Loop through string and count each character
     # If character exists in counts, increment it
     # If not, set it to 1
+    for char in s:
+        if char in counts:
+            counts[char] += 1
+        else:
+            counts[char] = 1
     return counts
 
 # Main function: Find first unique character
@@ -113,7 +139,9 @@ def first_unique_character(s):
     # Step 2: Loop through string with index to find first unique
     # TODO: Use for i in range(len(s)) to check each character
     # Return i if char_counts[s[i]] == 1
-
+    for i in range(len(s)):
+        if char_counts[s[i]] == 1:
+            return i
     # Step 3: Return -1 if no unique character found
     return -1
 
