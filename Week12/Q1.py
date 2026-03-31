@@ -55,8 +55,8 @@ class PortScanner(Scanner):
                 else:
                     self.results.append(f"Port {port}: closed")
                 sock.close()
-            except:
-                self.results.append(f"Port {port}: error")
+            except socket.error as e:
+                self.results.append(f"Port {port}: error {e}")
 
 class HTTPScanner(Scanner):
     """Child class — scans HTTP paths for accessible pages."""
