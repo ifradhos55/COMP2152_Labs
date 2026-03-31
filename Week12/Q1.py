@@ -46,15 +46,17 @@ class PortScanner(Scanner):
     #     Close the socket
     def scan(self):
         for port in self.ports:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(1)
-            result = sock.connect_ex((self.target, port))
-            if result == 0:
-                self.results.append(f"Port {port}: OPEN")
-            else:
-                self.results.append(f"Port {port}: closed")
-            sock.close()
-
+            try:
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(1)
+                result = sock.connect_ex((self.target, port))
+                if result == 0:
+                    self.results.append(f"Port {port}: OPEN")
+                else:
+                    self.results.append(f"Port {port}: closed")
+                sock.close()
+            except:
+                self.results.append(f"Port {port}: error")
 
 class HTTPScanner(Scanner):
     """Child class — scans HTTP paths for accessible pages."""
@@ -79,7 +81,6 @@ class HTTPScanner(Scanner):
                 self.results.append(f"{path} → {response.status} (accessible)")
             except:
                 self.results.append(f"{path} → NOT FOUND")
-
 
 # --- Main (provided) ---
 if __name__ == "__main__":
